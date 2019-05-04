@@ -7,5 +7,5 @@ function wirelessNetworkSSIDEncryptionTable {
     Start-Process powershell -ArgumentList "-command  $Scriptblock"
 
   }
-  
+
 }
