@@ -4,7 +4,7 @@ function wirelessClientGPSInfoTable {
 
     $cmdstring = "wirelessClientGPSInfo $_" + " " + ".\"
     $scriptblock = [scriptblock]::Create($cmdstring)
-    Start-Process powershell -ArgumentList "-command  $Scriptblock"
+    Start-Process pwsh -ArgumentList "-command  $Scriptblock"
 
   }
 
