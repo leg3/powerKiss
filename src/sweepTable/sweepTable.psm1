@@ -1,4 +1,4 @@
-function sweep {
+function sweepTable {
 Get-ChildItem -Path ${psscriptroot} -Name -Filter "*.netxml" | ForEach-Object {
 $name = $_.Replace(".netxml","")
 mkdir $name
