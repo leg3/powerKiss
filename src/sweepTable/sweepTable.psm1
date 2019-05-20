@@ -1,11 +1,12 @@
 function sweepTable {
 
 	Get-ChildItem -Name -Filter "*.netxml" | ForEach-Object {
-		$name = $_.Replace(".netxml","")
+        
+        $name = $_.Replace(".netxml","")
 		mkdir $name
 		$destination = Get-ChildItem -Path ./ -Directory $name
-		Move-Item -Path ".\$name*.csv" -Destination $destination
-		Move-Item -Path ".\$name*.netxml" -Destination $destination
+        Move-Item -Path ".\$name*.csv" -Destination $destination
+        
     }
     
 }
