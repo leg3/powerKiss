@@ -8,24 +8,16 @@ powerKiss is a collection of cmdlets that operate on kismet .netxml files and ge
 
 ## Usage
 
-Generate .csv files for the "cardSource" table from all the .netxml files in the current directory:
+Call the module functions in a directory with .netxml files to generate .csv tables.  The example generates the "cardSource" .csv file named after the kismet .netxml file it is parsing.
 
 ```powershell
 cardSourceTable
 ```
 
-Stitch all the .csv files in the current directory for the "cardSource" table into one .csv file:
+Move all the generated .csv files in the current directory into directories named after their respective kismet .netxml files.  Generate an .sql file for loading into the MySQL database
 
 ```powershell
-cardSourceStitch
-```
-
-Each function has a prefix which is the table name and a suffix which is the command to either generate the .csv files (Table) or stitch the .csv files together (Stitch). 
-
-The outputs that are generated from each individual "Stitch" command can be concatenated with the "stitchAll" cmdlet.  This cmdlet is intended to be used when all the tables have been generated and stitched and a single .csv file for each table to be imported is desired.
-
-```powershell
-stitchAll
+sweepTable
 ```
 
 ### Functions
@@ -38,7 +30,6 @@ The following tables are generated in .csv format by their respective functions:
 
 * cardSource
 * detectionRun
-* stitchAll
 
 * wirelessClient
 * wirelessClientGPSInfo
@@ -59,7 +50,7 @@ The following tables are generated in .csv format by their respective functions:
 
 * Move desired .netxml files into a blank directory
 * Call each function as needed to generate .csv files for MySQL import
-* Stitch output .csv files together into a composite .csv file for each table
+* Move the resulting .csv files into a directory named after the kismet .netxml file
 
 ### Kismet .netxml Diagram
 
