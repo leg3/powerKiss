@@ -4,7 +4,7 @@ function wirelessNetworkSSID ($inputPath,$outputPath) {
 	[xml]$xml = Get-Content $inputPath
 
 	# Loop through the child nodes of the selected nodes and assemble an object to hold our values.
-	$xml. 'detection-run'. 'wireless-network'. 'ssid' | ForEach-Object {
+	$xml.'detection-run'.'wireless-network'.'ssid' | ForEach-Object {
 
 		# Test to see if the row has valid data and build the composite object
 		if ($_ -ne $NULL) {
@@ -13,29 +13,36 @@ function wirelessNetworkSSID ($inputPath,$outputPath) {
 			$wirelessNetworkSSID = New-Object Object
 
 			# Get the start time of the data set
-			$startTime = $xml. 'detection-run'. 'start-time'
+			$startTime = $xml.'detection-run'.'start-time'
 
 			# Get the index of the current row and use it to retrieve the corresponding BSSID value
-			$index = $xml. 'detection-run'. 'wireless-network'. 'ssid'.IndexOf($_);
-			$BSSID = $xml. 'detection-run'. 'wireless-network'. 'BSSID'[$index]
+			$index = $xml.'detection-run'.'wireless-network'.'ssid'.IndexOf($_);
+			$BSSID = $xml.'detection-run'.'wireless-network'.'BSSID'[$index]
 
 			# Add our values to the composite object
-			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "type" -Value $_. 'type'
-			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "max-rate" -Value $_. 'max-rate'
-			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "packets" -Value $_. 'packets'
+			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "type" -Value $_.'type'
+			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "max-rate" -Value $_.'max-rate'
+			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "packets" -Value $_.'packets'
 
 			# Test the beaconrate value to ensusure it isn't null and set an integer of 0 if it is null
 			if ($NULL -ne $_.beaconrate) {
-				Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "beaconrate" -Value $_. 'beaconrate' }
+				Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "beaconrate" -Value $_.'beaconrate' }
 			else {
 				Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "beaconrate" -Value "0"
 			}
 
-			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "wps" -Value $_. 'wps'
-			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "encryption-count" -Value $_. 'encryption'.count
-			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "wpa_version" -Value $_. 'wpa-version'
-			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "cloaked" -Value $_. 'essid'. 'cloaked'
-			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "essid" -Value $_. 'essid'. '#text'
+			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "wps" -Value $_.'wps'
+			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "encryption-count" -Value $_.'encryption'.count
+
+			# Test the wpa-version value to ensusure it isn't null and set to a value of 'none' if it is null
+			if ($NULL -ne $_.'wpa-version') {
+				Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "wpa_version" -Value $_.'wpa-version'
+			}
+			else {
+				Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "wpa_version" -Value "none"
+			}
+			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "cloaked" -Value $_.'essid'.'cloaked'
+			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "essid" -Value $_.'essid'.'#text'
 			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "start-time" -Value $startTime
 			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "BSSID" -Value $BSSID
 
