@@ -33,14 +33,7 @@ function wirelessNetworkSSID ($inputPath,$outputPath) {
 
 			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "wps" -Value $_.'wps'
 			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "encryption-count" -Value $_.'encryption'.count
-
-			# Test the wpa-version value to ensusure it isn't null and set to a value of 'none' if it is null
-			if ($NULL -ne $_.'wpa-version') {
-				Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "wpa_version" -Value $_.'wpa-version'
-			}
-			else {
-				Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "wpa_version" -Value "none"
-			}
+			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "wpa_version" -Value $_.'wpa-version'
 			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "cloaked" -Value $_.'essid'.'cloaked'
 			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "essid" -Value $_.'essid'.'#text'
 			Add-Member -InputObject $wirelessNetworkSSID -MemberType NoteProperty -Name "start-time" -Value $startTime
