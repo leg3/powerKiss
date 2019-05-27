@@ -1,4 +1,4 @@
-function cardSourceCheck {
+function checkTable {
 
 	if (-not (Test-Path "./*cardSource.csv")) { Write-Host "cardSource Table - ABSENT!" }
 	if (-not (Test-Path "./*detectionRun.csv")) { Write-Host "detectionRun Table - ABSENT!" }
