@@ -3,11 +3,11 @@ function wirelessNetworkSSIDEncryption ($inputPath,$outputPath) {
 	# load the .netxml file to be processed
 	[xml]$xml = Get-Content $inputPath
 
-	# Test to see if the row has valid data and build the composite object
-	if ($_ -ne $NULL) {
+	# Get the index of the current row and use it to retrieve the corresponding BSSID value
+	$xml.'detection-run'.'wireless-network'.'ssid' | ForEach-Object {
 
-		# Get the index of the current row and use it to retrieve the corresponding BSSID value
-		$xml.'detection-run'.'wireless-network'.'ssid' | ForEach-Object {
+		# Test to see if the row has valid data and build the composite object
+		if ($_ -ne $NULL) {
 
 			$index = $xml.'detection-run'.'wireless-network'.'ssid'.IndexOf($_);
 			$BSSID = $xml.'detection-run'.'wireless-network'.'BSSID'[$index]
