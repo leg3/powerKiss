@@ -8,7 +8,7 @@ function sweepTable {
 
 		# Get config template from github and store it in a variable
 		[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-		$template = Invoke-RestMethod -Uri https://gist.githubusercontent.com/velvet-valdes/bda8b133d761e7543fed60b6e9f8bde0/raw/9f8fb07700e942078324c2432010194dcd0e70f7/loaderTemplate.sql
+		$template = Invoke-RestMethod -Uri https://gist.githubusercontent.com/velvet-valdes/bda8b133d761e7543fed60b6e9f8bde0/raw/122b748f56a09d69e32db9674525a6a677dc1741/loaderTemplate.sql
 
 		# Replace the needed strings in the file
 		$template = $template.Replace("cardSource.csv",("$name" + "_cardSource.csv"))
